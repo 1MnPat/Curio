@@ -1,6 +1,6 @@
 langchain
 wikipedia
-alngchain-community
+langchain-community
 langchain-openai
 langchain-anthropic
 python-dotenv
