@@ -15,7 +15,7 @@ class ResearchResponse(BaseModel):
     tools_used: list[str]
 
 
-llm = ChatOpenAI(model="gpt-4o-mini ")
+llm = ChatOpenAI(model="gpt-4o-mini")
 # llm = ChatAnthropic(model="claude-3-5-sonnet-20241022")
 parser = PydanticOutputParser(pydantic_object=ResearchResponse)
 
@@ -45,3 +45,9 @@ agent = create_tool_calling_agent(
 
 agent_executor = AgentExecutor(agent=agent, tools=[], verbose=True)
 raw_response = agent_executor.invoke({"query": "what is the capital of france?"})
+print(raw_response)
+
+try:    
+    structured_response = parser.parse(raw_response.get("output")[0]["text"])
+except Exception as e:
+    print("Error parsing reponse", e, "Raw Response - ", raw_response) 
